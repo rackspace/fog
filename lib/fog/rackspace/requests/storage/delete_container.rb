@@ -20,6 +20,17 @@ module Fog
         end
 
       end
+
+      class Mock
+        def delete_container(name)
+          container_data = self.data[:directories][name]
+          if container_data.nil?
+            raise Fog::Storage::Rackspace::NotFound
+          else
+            response
+          end
+        end
+      end
     end
   end
 end

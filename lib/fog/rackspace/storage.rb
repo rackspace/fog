@@ -62,16 +62,29 @@ module Fog
 
       class Mock < Fog::Rackspace::Service
         include Utils
+        include Fog::Rackspace::MockData
 
-        def self.data
-          @data ||= Hash.new do |hash, key|
-            hash[key] = {}
+        def response(params={})
+          body    = params[:body] || {}
+          status  = params[:status] || 200
+          headers = params[:headers] || {}
+
+          response = Excon::Response.new(:body => body, :headers => headers, :status => status)
+          if params.has_key?(:expects) && ![*params[:expects]].include?(response.status)
+            raise(Excon::Errors.status_error(params, response))
+          else response
           end
         end
 
-        def self.reset
-          @data = nil
-        end
+        # def self.data
+        #   @data ||= Hash.new do |hash, key|
+        #     hash[key] = {}
+        #   end
+        # end
+
+        # def self.reset
+        #   @data = nil
+        # end
 
         def initialize(options={})
           require 'mime/types'
@@ -80,13 +93,13 @@ module Fog
           @rackspace_cdn_ssl = options[:rackspace_cdn_ssl]
         end
 
-        def data
-          self.class.data[@rackspace_username]
-        end
+        # def data
+        #   self.class.data[@rackspace_username]
+        # end
 
-        def reset_data
-          self.class.data.delete(@rackspace_username)
-        end
+        # def reset_data
+        #   self.class.data.delete(@rackspace_username)
+        # end
 
         def service_name
           :cloudFiles

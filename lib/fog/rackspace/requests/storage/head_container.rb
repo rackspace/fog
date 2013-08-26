@@ -27,6 +27,17 @@ module Fog
         end
 
       end
+
+      class Mock
+        def head_container(container)
+          container_data = self.data[:directories][container]
+          if container_data.nil?
+            raise Fog::Storage::Rackspace::NotFound
+          else
+            response(:headers => container_data[:headers])
+          end
+        end
+      end
     end
   end
 end

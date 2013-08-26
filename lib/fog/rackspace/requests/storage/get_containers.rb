@@ -32,6 +32,12 @@ module Fog
         end
 
       end
+
+      class Mock
+        def get_containers(options = {})
+          response(:body => [{'bytes' => 1, 'count' => 5, 'name' => 'asdf'}])
+        end
+      end
     end
   end
 end

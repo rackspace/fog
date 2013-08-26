@@ -43,6 +43,19 @@ module Fog
         end
 
       end
+
+      class Mock
+        def get_container(container, options = {})
+          container_data = self.data[:directories][container]
+          if container_data.nil?
+            raise Fog::Storage::Rackspace::NotFound
+          else
+            # container_response = Fog::Rackspace::MockData.keep(container, 'id', 'name', 'hostId', 'created', 'updated', 'status', 'progress', 'user_id', 'tenant_id', 'links', 'metadata', 'accessIPv4', 'accessIPv6', 'OS-DCF:diskConfig', 'rax-bandwidth:bandwidth', 'addresses', 'flavor', 'image')
+            # container_response['image']['links'].map! { |l| l.delete("type"); l }
+            response(:body => ['a', 'b'])
+          end
+        end
+      end
     end
   end
 end
