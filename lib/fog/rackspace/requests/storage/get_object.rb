@@ -29,6 +29,16 @@ module Fog
         end
 
       end
+
+      class Mock
+        def get_object(container, object)
+          response({
+              :headers => {
+                'ETag' => '12345'
+              }
+            })
+        end
+      end
     end
   end
 end

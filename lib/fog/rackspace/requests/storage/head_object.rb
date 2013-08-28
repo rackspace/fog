@@ -21,6 +21,14 @@ module Fog
         end
 
       end
+
+      class Mock
+        def head_object(container, object)
+          response = get_object(container, object)
+          response.body = nil
+          response
+        end
+      end
     end
   end
 end

@@ -50,9 +50,15 @@ module Fog
           if container_data.nil?
             raise Fog::Storage::Rackspace::NotFound
           else
-            # container_response = Fog::Rackspace::MockData.keep(container, 'id', 'name', 'hostId', 'created', 'updated', 'status', 'progress', 'user_id', 'tenant_id', 'links', 'metadata', 'accessIPv4', 'accessIPv6', 'OS-DCF:diskConfig', 'rax-bandwidth:bandwidth', 'addresses', 'flavor', 'image')
-            # container_response['image']['links'].map! { |l| l.delete("type"); l }
-            response(:body => ['a', 'b'])
+            response(:body => [
+              {
+                "hash"=>Fog::Mock.random_hex(32),
+                "last_modified"=>Time.now.utc.iso8601,
+                "bytes"=>Fog::Mock.random_numbers(3),
+                "name"=>"this.rb",
+                "content_type"=>"application/x-ruby"
+              }
+            ])
           end
         end
       end
