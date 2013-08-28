@@ -59,6 +59,7 @@ module Shindo
 
     def rackspace_test_image_id(service) 
       # I chose to use the first Ubuntu because it will work with the smallest flavor and it doesn't require a license
+      @image_id = service.images.first if Fog.mocking? # Should find Ubuntu, but v2 Mock is not initialized with a realistic image list right now.
       @image_id ||= Fog.credentials[:rackspace_image_id] || service.images.find {|img| img.name =~ /Ubuntu/ }.id
     end
 
