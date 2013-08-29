@@ -21,6 +21,13 @@ module Fog
         end
 
       end
+
+      class Mock
+        def put_container(name, options={})
+          self.data[:directories][name] = {:headers => options}
+          response(:body => response)
+        end
+      end
     end
   end
 end

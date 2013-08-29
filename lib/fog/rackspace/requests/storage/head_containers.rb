@@ -24,6 +24,12 @@ module Fog
         end
 
       end
+
+      class Mock
+        def head_containers
+          response(:body => '')
+        end
+      end
     end
   end
 end

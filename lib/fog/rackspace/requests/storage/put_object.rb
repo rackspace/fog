@@ -31,6 +31,12 @@ module Fog
           request(params)
         end
       end
+
+      class Mock
+        def put_object(container, object, data, options = {}, &block)
+          response
+        end
+      end
     end
   end
 end

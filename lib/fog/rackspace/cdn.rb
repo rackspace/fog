@@ -190,6 +190,12 @@ module Fog
          })
         end
       end
+
+      class Mock < Fog::Rackspace::Service
+        def enabled?
+          true
+        end
+      end
     end
   end
 end

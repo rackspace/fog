@@ -43,6 +43,25 @@ module Fog
         end
 
       end
+
+      class Mock
+        def get_container(container, options = {})
+          container_data = self.data[:directories][container]
+          if container_data.nil?
+            raise Fog::Storage::Rackspace::NotFound
+          else
+            response(:body => [
+              {
+                "hash"=>Fog::Mock.random_hex(32),
+                "last_modified"=>Time.now.utc.iso8601,
+                "bytes"=>Fog::Mock.random_numbers(3),
+                "name"=>"this.rb",
+                "content_type"=>"application/x-ruby"
+              }
+            ])
+          end
+        end
+      end
     end
   end
 end
