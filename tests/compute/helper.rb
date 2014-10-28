@@ -121,14 +121,15 @@ def compute_providers
         :name       => "fog_#{Time.now.to_i}"
       }
     },
-    :rackspace  => {
-      :provider_attributes => { :version => :v2 },
+    :voxel      => {
       :server_attributes => {
-        :image_id => "23b564c9-c3e6-49f9-bc68-86c7a9ab5018", # Ubuntu 12.04 LTS (Precise Pangolin)
-        :flavor_id => 2,
-        :name     => "fog_#{Time.now.to_i}"
+        :name => "fog.#{Time.now.to_i}",
+        :disk_size => 10,
+        :processing_cores => 1,
+        :image_id => 55, # image 55 = Ubuntu 10.04 (Lucid), 64-bit, base install
+        :facility => "LDJ1"
       },
-      :mocked => true
+      :mocked => false
     }
   }
 end
