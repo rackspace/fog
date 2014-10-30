@@ -59,15 +59,12 @@ Gem::Specification.new do |s|
   s.add_dependency("fog-sakuracloud", ">= 0.0.4")
   s.add_dependency("fog-radosgw", ">=0.0.2")
   s.add_dependency("fog-profitbricks")
-<<<<<<< HEAD
   s.add_dependency("fog-voxel")
   s.add_dependency("fog-vmfusion")
   s.add_dependency("fog-terremark")
 
   # Extra Dependencies
   s.add_dependency("opennebula")
-=======
->>>>>>> Adding fog-profitbricks as a runtime_dependency.
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
