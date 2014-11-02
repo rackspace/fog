@@ -62,7 +62,7 @@ Shindo.tests('AWS | signaturev4', ['aws']) do
     end
   end
 
-  tests('get signature as components') do 
+  tests('get signature as components') do
     returns(@signer.signature_parameters({:query => {'a' => 'foo', 'b' => 'foo'}, :headers => {'Host' => 'host.foo.com', 'Date' => 'Mon, 09 Sep 2011 23:36:00 GMT'}, :method => :get, :path => '/'}, @now)) do
       {
         'X-Amz-Algorithm' => 'AWS4-HMAC-SHA256',

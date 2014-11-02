@@ -30,7 +30,7 @@ module Fog
       end
 
       def components_to_header components
-        "#{components['X-Amz-Algorithm']} Credential=#{components['X-Amz-Credential']}, SignedHeaders=#{components['X-Amz-SignedHeaders']}, Signature=#{components['X-Amz-Signature']}" 
+        "#{components['X-Amz-Algorithm']} Credential=#{components['X-Amz-Credential']}, SignedHeaders=#{components['X-Amz-SignedHeaders']}, Signature=#{components['X-Amz-Signature']}"
       end
 
       def signature_components(params, date, body_sha)
