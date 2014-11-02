@@ -593,6 +593,56 @@ DATA
             hmac.sign(string_to_sign.strip).unpack('H*').first
           end
         end
+
+        # See http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-streaming.html
+
+        class S3Streamer
+          attr_accessor :body, :signature, :signer, :finished, :date
+          def initialize(body, signature, signer, date)
+            self.body = body
+            self.date = date
+            self.signature = signature
+            self.signer = signer
+            if body.respond_to?(:binmode)
+              body.binmode
+            end
+            if body.respond_to?(:pos=)
+              body.pos = 0
+            end
+          end
+
+          def call
+            if finished
+              ''
+            else
+              next_chunk
+            end
+          end
+
+          def next_chunk
+            data = body.read(0x10000)
+            if data.nil?
+              self.finished = true
+              data = ''
+            end
+            self.signature = sign_chunk(data, signature)
+            "#{data.length.to_s(16)};chunk-signature=#{signature}\r\n#{data}\r\n"
+          end
+
+
+          def sign_chunk(data, previous_signature)
+            string_to_sign = <<-DATA
+AWS4-HMAC-SHA256-PAYLOAD
+#{date.to_iso8601_basic}
+#{signer.credential_scope(date)}
+#{previous_signature}
+#{Digest::SHA256.hexdigest('')}
+#{Digest::SHA256.hexdigest(data)}
+DATA
+            hmac = signer.derived_hmac(date)
+            hmac.sign(string_to_sign.strip).unpack('H*').first
+          end
+        end
       end
     end
   end
