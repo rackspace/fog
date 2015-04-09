@@ -9,6 +9,29 @@ module Fog
         def initialize(attributes)
           @service = attributes.delete(:service)
           @catalog = attributes.delete(:catalog) || {}
+
+          # # TODO: Remove this before merging to master!
+          # # TODO: Remove this before merging to master!
+          # # TODO: Remove this before merging to master!
+          # # TODO: Remove this before merging to master!
+          deets = {
+            "name" => "cloudKeep",
+            "endpoints" => [
+              {
+                "region" => "GLOBAL",
+                "tenantId" => "930035",
+                "publicURL" => "https://ord.keep.api.rackspacecloud.com/v1"
+              }
+            ],
+            "type" => "rax:cloud-keep"
+          }
+
+          @catalog.first.merge!(deets)
+          @catalog
+          # # TODO: Remove this before merging to master!
+          # # TODO: Remove this before merging to master!
+          # # TODO: Remove this before merging to master!
+          # # TODO: Remove this before merging to master!
         end
 
         def services
