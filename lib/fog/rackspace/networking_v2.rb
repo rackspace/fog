@@ -60,6 +60,9 @@ module Fog
       model :security_group_rule
       collection :security_group_rules
 
+      model :ip_address
+      collection :ip_addresses
+
       request_path 'fog/rackspace/requests/networking_v2'
       request :list_networks
       request :create_network
@@ -89,6 +92,12 @@ module Fog
       request :create_security_group_rule
       request :show_security_group_rule
       request :delete_security_group_rule
+
+      request :list_ip_addresses
+      request :create_ip_address
+      request :show_ip_address
+      request :update_ip_address
+      request :delete_ip_address
 
       class Mock < Fog::Rackspace::Service
         include Fog::Rackspace::MockData
