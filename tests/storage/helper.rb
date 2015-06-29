@@ -14,9 +14,6 @@ def storage_providers
     },
     :ninefold   => {
       :mocked => false
-    },
-    :rackspace  => {
-      :mocked => false
     }
   }
 end
